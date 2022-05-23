@@ -6,22 +6,39 @@ const dateFormat = require('../utils/dateFormat');
 // create new schema
 const thoughtSchema = new Schema(
     {
-        thoughtPost: {
-
+        thoughtText: {
+            type: String,
+            required: true,
+            min: [1],
+            max: [280],
         },
         createdAt: {
-            get: timestamp => dateFormat(timestamp)
-        }
+            type: Date,
+            default: Date.now,
+            get: timestamp => dateFormat(timestamp),
+        },
+        username: {
+            type: String,
+            requried: true,
+        },
+        reactions: [
+            reactionSchema
+        ]
     },
     {
         toJSON:  {
             getters: true
-        },
-        id: false
+        }, id: false
     }
-)
-// create model
-const thought = model("Thought", thoughtSchema);
+);
 
-// reference the reaction schema
+// reactionCount virtual
+thoughtSchema.virtual('reactionCount').get(function () {
+    return this.reactions.length;
+  });
+
+// create model
+const Thought = model("Thought", thoughtSchema);
+
+
 module.exports = Thought;
