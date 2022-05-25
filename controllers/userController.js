@@ -10,8 +10,8 @@ const userController = {
             .populate('thoughts')
             .then(users => res.json(users))
             .catch(err => {
-                console.log(err);
-                res.status(500).json(err);
+            console.log(err);
+            res.status(500).json(err);
             })
     },
 
@@ -51,8 +51,8 @@ const userController = {
         )
             .then((user) =>
                 !user
-                    ? res.status(404).json({ message: 'Please enter a valid User' })
-                    : res.json(user)
+                ? res.status(404).json({ message: 'Please enter a valid User' })
+                : res.json(user)
             )
             .catch((err) => {
                 console.log(err);
@@ -65,8 +65,8 @@ const userController = {
         User.findOneAndDelete({ _id: req.params.userId })
             .then((user) =>
                 !user
-                    ? res.status(404).json({ message: 'Please enter a valid User' })
-                    : Thought.deleteMany({ _id: { $in: user.thoughts } })
+                ? res.status(404).json({ message: 'Please enter a valid User' })
+                : Thought.deleteMany({ _id: { $in: user.thoughts } })
             )
         .then(() => res.json({ message: 'Deleted this user and their thoughts' }))
         .catch((err) => res.status(500).json(err));
@@ -88,8 +88,8 @@ const userController = {
           .select('-__v')
           .then((user) =>
             !user
-              ? res.status(404).json({ message: 'Please enter a valid User' })
-              : res.json(user),
+            ? res.status(404).json({ message: 'Please enter a valid User' })
+            : res.json(user),
           )
           .catch((err) => {
             console.log(err);
@@ -111,8 +111,8 @@ const userController = {
         .select('-__v')
           .then((user) =>
             !user
-              ? res.status(404).json({ message: 'Please enter a valid User' })
-              : res.json(user),
+            ? res.status(404).json({ message: 'Please enter a valid User' })
+            : res.json(user),
           )
           .catch((err) => {
             console.log(err);
