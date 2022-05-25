@@ -45,9 +45,9 @@ const thoughtController = {
     },
 
     // Update thoughts
-    updateUser(req, res) {
+    updateThought(req, res) {
 
-        User.findOneAndUpdate(
+        Thought.findOneAndUpdate(
             {_id: req.params.thoughtId},
             {$set: req.body},
             {runValidators:true, new:true}
@@ -105,7 +105,7 @@ const thoughtController = {
     },
 
     // Remove a reaction to thoughts
-    removeReaction(req, res) {
+    deleteReaction(req, res) {
 
         Thought.findOneAndUpdate(
           {_id: req.params.thoughtId},
