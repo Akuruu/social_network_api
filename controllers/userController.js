@@ -105,7 +105,7 @@ const userController = {
       }, 
 
       // Delete friends
-      removeFriend(req, res) {
+      deleteFriend(req, res) {
 
         User.findOneAndUpdate(
           {_id: req.params.userId},
