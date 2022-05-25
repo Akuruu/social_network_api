@@ -28,19 +28,75 @@ const thoughtController = {
         .then(({_id}) => User.findOneAndUpdate(
             {_id:body.userId}, 
             {$push:{thoughts:_id}}, 
-            {new:true}
+            {runValidators:true, new:true}
             ))
         .then((thought) =>
             !thought
             ? res.status(404).json({ message: 'Please enter a valid thought ID'})
             : res.json(thought)
           )
-        .catch(err => res.status(500).json(err))
+          .catch((err) => {
+            console.log(err);
+            res.status(500).json(err);
+          });
     },
-    //update thoughts
-    //delete thoughts
-    //add reaction to thoughts
-    //remove a reaction to thoughts
+
+    // Update thoughts
+    updateUser(req, res) {
+        User.findOneAndUpdate(
+            {_id: req.params.thoughtId},
+            {$set: req.body},
+            {runValidators:true, new:true}
+        )
+            .then((thought) =>
+                !user
+                ? res.status(404).json({ message: 'Please enter a valid thought ID' })
+                : res.json(thought)
+            )
+            .catch((err) => {
+                console.log(err);
+                res.status(500).json(err);
+            });
+    },
+
+    // Delete a thought
+    deleteThought(req, res) {
+        Thought.findOneAndDelete({ _id: req.params.thoughtId })
+        .then((thought) =>
+            !thought
+            ? res.status(404).json({ message: 'Please enter a valid thought ID' })
+            : res.json('Successfully deleted thought')
+          )
+        .catch((err) => res.status(500).json(err));
+    },
+
+    // REACTIONS
+
+    // Add a reaction to thoughts
+    addReaction(req, res) {
+        Thought.findOneAndUpdate(
+          {_id:req.params.thoughtId},
+          {$push:{reactions: req.body}},
+          {runValidators:true, new:true}
+        )
+        .populate({
+          path: 'reactions',
+          select: '-__v'
+        })
+        .select('-__v')
+        .then((thought) =>
+            !thought
+            ? res.status(404).json({ message: 'Please enter a valid reaction' })
+            : res.json(thought),
+        )
+        .catch((err) => {
+          console.log(err);
+          res.status(500).json(err);
+        });
+    },
+
+    // Remove a reaction to thoughts
+
 }
 
 
