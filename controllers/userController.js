@@ -3,8 +3,10 @@ const { User, Thought } = require('../models');
 
 // CRUD
 const userController = {
+    
     // Get all users with their thoughts and friends
     getUsers(req, res) {
+
         User.find({})
         .populate('friends')
         .populate('thoughts')
@@ -17,6 +19,7 @@ const userController = {
 
     // Get a single user with their thoughts and friends
     getSingleUser(req, res) {
+
         User.findOne({ _id: req.params.userId })
         .select('-__v')
         .populate({
@@ -37,6 +40,7 @@ const userController = {
 
     // Create a user
     createUser(req, res) {
+
         User.create(req.body)
         .then((user) => res.json(user))
         .catch((err) => res.status(500).json(err));
@@ -44,6 +48,7 @@ const userController = {
 
     // Update a user 
     updateUser(req, res) {
+
         User.findOneAndUpdate(
             {_id: req.params.userId},
             {$set: req.body},
@@ -62,6 +67,7 @@ const userController = {
 
     // Delete a user
     deleteUser(req, res) {
+
         User.findOneAndDelete({ _id: req.params.userId })
         .then((user) =>
             !user
@@ -76,6 +82,7 @@ const userController = {
 
     // Add friends
     addFriend(req, res) {
+
         User.findOneAndUpdate(
           {_id: req.params.userId},
           {$push:{friends: req.params.friendId}},
@@ -99,6 +106,7 @@ const userController = {
 
       // Delete friends
       removeFriend(req, res) {
+
         User.findOneAndUpdate(
           {_id: req.params.userId},
           {$pull:{friends: req.params.friendId}},
