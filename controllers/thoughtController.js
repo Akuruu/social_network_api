@@ -36,8 +36,8 @@ const thoughtController = {
       })
       .then((user) => 
             !user
-            ? res.status(404).json({ message: 'Successfully created thought with no user'})
-            : res.json("Thought created")
+            ? res.status(404).json({ message: 'Please try again'})
+            : res.json('Successfully created thought')
         )
       .catch((err) => {
       console.log(err);
