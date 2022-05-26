@@ -6,7 +6,7 @@ const { getThoughts, getSingleThought, createThought, deleteThought, updateThoug
 router.route('/').get(getThoughts).post(createThought);
 
 // One thought /api/:thoughtid
-// Update and delete a user
+// Update and delete a thought
 router.route('/:thoughtId')
 .get(getSingleThought).put(updateThought).delete(deleteThought);
 
