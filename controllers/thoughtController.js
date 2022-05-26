@@ -27,12 +27,12 @@ const thoughtController = {
     createThought({ body }, res) {
 
         Thought.create({ thoughtText: body.thoughtText, username: body.username })
-        // not sure if return is needed
-        .then(({_id}) => User.findOneAndUpdate(
+        .then(({_id}) => {return User.findOneAndUpdate(
             {_id:body.userId}, 
             {$push:{thoughts:_id}}, 
             {runValidators:true, new:true}
-            ))
+            );
+        })
         .then((thought) =>
             !thought
             ? res.status(404).json({ message: 'Please enter a valid thought ID'})
