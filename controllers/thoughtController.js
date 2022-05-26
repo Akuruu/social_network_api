@@ -37,7 +37,7 @@ const thoughtController = {
       .then((user) => 
             !user
             ? res.status(404).json({ message: 'Please try again'})
-            : res.json('Successfully created thought')
+            : res.json(user)
         )
       .catch((err) => {
       console.log(err);
@@ -71,7 +71,7 @@ const thoughtController = {
         .then((thought) =>
             !thought
             ? res.status(404).json({ message: 'Please enter a valid thought ID' })
-            : res.json('Successfully deleted thought')
+            : res.json(err)
           )
         .catch((err) => {
             console.log(err);
