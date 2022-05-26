@@ -12,6 +12,6 @@ router.route('/:userId')
 
 // Thought reactions /api/:userid/friends
 // Add and Delete a friend
-router.route('/:userId/reactions').post(addFriend).delete(deleteFriend);
+router.route('/:userId/friends').post(addFriend).delete(deleteFriend);
 
 module.exports = router;
